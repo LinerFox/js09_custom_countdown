@@ -11,10 +11,11 @@ const completeEl = document.getElementById("complete");
 const completeElInfo = document.getElementById("complete-info");
 const completeButton = document.getElementById("complete-button");
 
-let countTitle = "";
+let countDownTitle = "";
 let countDownDate = "";
 let countDownValue = Date;
 let countDownActive;
+let saveCountdown;
 // Simple time Constructs
 const second = 1000;
 const minute = second * 60;
@@ -46,7 +47,7 @@ function updateDOM() {
       completeEl.hidden = false;
     } else {
       // Show countdown in progress
-      countDownTitleEl.textContent = `${countTitle}`;
+      countDownTitleEl.textContent = `${countDownTitle}`;
       timeElements[1].textContent = `${hours}`;
       timeElements[0].textContent = `${days}`;
       timeElements[2].textContent = `${minutes}`;
@@ -59,9 +60,10 @@ function updateDOM() {
 // Take Values from Form Input
 function updateCountdown(e) {
   e.preventDefault();
-  countTitle = e.srcElement[0].value;
+  countDownTitle = e.srcElement[0].value;
   countDownDate = e.srcElement[1].value;
-  console.log(countTitle, countDownDate);
+  saveCountdown = { title: countDownTitle, date: countDownDate };
+  localStorage.setItem("countdown", JSON.stringify(saveCountdown));
   // Check for valid date
   if (countDownDate === "") {
     alert("Please select a date");
@@ -84,7 +86,22 @@ function reset() {
   countDownTitleEl = "";
   countDownDate = "";
 }
+
+function restorePreviousCountdown() {
+  // Get countdown from local storage if available
+  if (localStorage.getItem("countDown")) {
+    inputContainer.hidden = true;
+    saveCountdown.JSON.parse(localStorage.getItem("countDown"));
+    countDownTitle = saveCountdown.title;
+    countDownDate = saveCountdown.date;
+    countDownValue = new Date(countDownDate).getTime();
+    updateDOM();
+  }
+}
 // Event Listener for OnClick
 countdownForm.addEventListener("submit", updateCountdown);
 countDownButton.addEventListener("click", reset);
 completeButton.addEventListener("click", reset);
+
+// On Load, check Local Storage
+restorePreviousCountdown();
