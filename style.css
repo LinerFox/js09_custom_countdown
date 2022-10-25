@@ -8,6 +8,7 @@ body {
   overflow-y: hidden;
   display: flex;
   align-items: center;
+  font-family: "Nunito", sans-serif;
 }
 
 /* Video Background */
@@ -46,6 +47,7 @@ video {
   z-index: 2;
   display: flex;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .input-container {
@@ -74,10 +76,10 @@ input {
   width: 95%;
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 20px;
   background: #fff;
   outline: none;
+  font-family: "Nunito", sans-serif;
 }
 
 /* Button */
@@ -88,10 +90,14 @@ button {
   margin-top: 15px;
   border: none;
   text-transform: uppercase;
-  background: #006959;
+  background: #ad660d;
   color: white;
   cursor: pointer;
   outline: none;
+}
+
+button:hover {
+  filter: brightness(110%);
 }
 
 /* Countdown */
@@ -132,8 +138,9 @@ li span {
   }
 
   .container {
+    min-width: unset;
+    width: 95vw;
     min-height: 245px;
-    padding: 20px;
     margin: 10px;
   }
 
